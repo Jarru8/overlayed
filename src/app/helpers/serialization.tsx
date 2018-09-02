@@ -15,12 +15,12 @@ export interface IManipulateSettingsProps<TSettings = {}> {
 // HOC that creates a component that injects settings via props
 // 
 // TODO(bengreenier): the typing on the return isn't coming through :(
-export const withSettings = <Q extends object, P extends IManipulateSettingsProps<Q>>(Comp : React.ComponentType<P>) => {
+export const withSettings = <Q extends object, P extends IManipulateSettingsProps<Q> | object>(Comp : React.ComponentType<P>) => {
   return class WithSettings extends React.Component<P & IWithSettingsProps, any> {
 
     constructor(props : P & IWithSettingsProps) {
       super(props)
-      
+
       this.updateSettings = this.updateSettings.bind(this)
     }
 

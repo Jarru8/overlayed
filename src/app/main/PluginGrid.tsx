@@ -3,19 +3,18 @@ import { existsSync, lstatSync, readdirSync, readFileSync, writeFileSync } from 
 import moment from 'moment'
 import { join } from 'path'
 import React from 'react'
-import ReactGridLayout, { WidthProvider } from 'react-grid-layout'
 import { IInstalledPlugin, IInstallNeededPlugin, IPluginProperties } from '../plugin/IPlugin'
 import { Plugin, pluginStyles } from './Plugin'
+import { RGLWrapper } from './RGLWrapper'
 
 const isDirectory = (source : string) => lstatSync(source).isDirectory()
 const getDirectories = (source : string)  =>
   readdirSync(source).map((name : string) => join(source, name)).filter(isDirectory)
 
-// makes the RGL responsive-ish
-const RGL = WidthProvider(ReactGridLayout)
 
 // the constant for the name of the install lockfile
 const pluginInstalledLockFileName = 'overlayed-install.lock'
+const gridSettingsKeyName = 'overlayed.grid'
 
 interface IState {
   /**
@@ -48,12 +47,11 @@ export class PluginGrid extends React.Component<IPluginGridProps, IState> {
     // we need to wrap plugin in a div for RGL to work properly :(
     // see https://github.com/STRML/react-grid-layout/issues/397
     return (
-      <RGL
-        compactType={null}
-        useCSSTransforms={true}
+      <RGLWrapper
+        settingsKey={gridSettingsKeyName}
       >
         {this.state.plugins.map(pluginData => <div style={pluginStyles} key={`${pluginData.name}@${pluginData.version}`}><Plugin plugin={pluginData}/></div>)}
-      </RGL>
+      </RGLWrapper>
     )
   }
 
