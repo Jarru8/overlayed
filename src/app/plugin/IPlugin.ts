@@ -1,4 +1,4 @@
-import React from "react";
+import React from "react"
 
 export interface IPluginProperties {
   /**
@@ -32,7 +32,7 @@ export interface IPluginProperties {
  * 
  * Note: Plugins should each have their own folder
  */
-export interface IInstalledPlugin extends IPluginProperties{
+export interface IInstalledPlugin extends IPluginProperties {
   /**
    * The actual react component
    */
